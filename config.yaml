@@ -1,0 +1,10 @@
+# WSL format for the dataset path
+path: /mnt/c/Users/hardi/Downloads/license_plate_dataset_kaggle
+
+# Relative paths to the train and validation images (from 'path')
+train: images/train
+val: images/train
+
+# Class names (assuming 'license_plate' is the only class)
+names:
+  0: license_plate

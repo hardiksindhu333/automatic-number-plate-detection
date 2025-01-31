@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Slots</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        table {
+            width: 50%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Parking Slots</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Slot Number</th>
+                <th>License Number</th>
+            </tr>
+        </thead>
+        <tbody id="parking-table-body">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchParkingData() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/get_parking_slots');
+                const data = await response.json();
+                const tableBody = document.getElementById('parking-table-body');
+
+                data.slots.forEach(slot => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${slot.slot_number}</td>
+                        <td>${slot.license_number}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching parking data:', error);
+            }
+        }
+
+        fetchParkingData();
+    </script>
+</body>
+</html>
